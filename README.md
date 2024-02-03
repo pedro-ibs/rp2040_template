@@ -35,17 +35,38 @@ Há também alguns arquivos importantes: Como o `pico_sdk_import.cmake`  importa
 Algumas configurações **importantes** do template encontram se no arquivo [build.sh](./RPI_PICO_SDK/build.sh). Onde deve ser configurado as variáveis de ambiente onde os valores são definidas no processo de configuração so SDK por exemplo:
 
 ```
-export PICO_SDK_PATH=~/.local/opt/pico/pico-sdk
-export PICO_EXAMPLES_PATH=~/.local/opt/pico/pico-examples
-export PICO_PLATFORM=rp2040
+PICO_SDK_PATH="~/pico/pico-sdk"
+PICO_EXAMPLES_PATH="~/pico/pico-examples"
+PICO_PLATFORM="rp2040"
+```
+
+Atenção na seleção do modelo de placa utilizado:
+
+
+```
+# PICO_BOARD="pico_w"
+PICO_BOARD="pico"
+```
+
+Para configurar o meio de comunicação da serial:
+```
+UART_ENABLE="1"
+USB_CDC_ENABLE="0"
 ```
 
 Além disso é importante "**incluir**" as **bibliotecas do SDK** que eventualmente serão utilizadas no projeto, pro exemplo incluindo uart e pwm:
 ```
 LIBRARIES="
 
+	# pico_cyw43_arch_none
+	# pico_cyw43_arch_lwip_threadsafe_background
+
+	pico_stdlib
+	pico_multicore
+	
 	hardware_pwm
 	hardware_uart
+	hardware_adc
 
 "
 ```
